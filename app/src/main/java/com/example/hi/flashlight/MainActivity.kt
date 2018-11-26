@@ -2,7 +2,7 @@ package com.example.hi.flashlight
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_main.*
-
+import org.jetbrains.anko.intentFor
 
 
 class MainActivity : AppCompatActivity() {
@@ -11,19 +11,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val torch = Torch(this)
-
         flashSwitch.setOnCheckedChangeListener{
             buttonView, isChecked ->
             if(isChecked){
-                torch.flashOn()
+                startService(intentFor<TorchService>().setAction("on"))
             }else{
-                torch.flashOff()
+                startService(intentFor<TorchService>().setAction("off"))
             }
         }
 
     }
-
-
-
 }
